@@ -4,8 +4,8 @@
 		<contributor>
 			<authoring_tool>CINEMA4D 19.068 COLLADA Exporter</authoring_tool>
 		</contributor>
-		<created>2019-03-08T21:00:54Z</created>
-		<modified>2019-03-08T21:00:54Z</modified>
+		<created>2019-03-08T21:08:02Z</created>
+		<modified>2019-03-08T21:08:02Z</modified>
 		<unit meter="0.01" name="centimeter"/>
 		<up_axis>Y_UP</up_axis>
 	</asset>
@@ -4196,7 +4196,7 @@
 					<rotate sid="rotateZ">0 0 1 -0</rotate>
 					<scale sid="scale">1 1 1</scale>
 					<node id="ID18" name="Cloner.1">
-						<translate sid="translate">0 -4.17096 11.0181</translate>
+						<translate sid="translate">0 -2.23098 11.0181</translate>
 						<rotate sid="rotateY">0 1 0 -0</rotate>
 						<rotate sid="rotateX">1 0 0 0</rotate>
 						<rotate sid="rotateZ">0 0 1 -0</rotate>
@@ -4523,7 +4523,7 @@
 						</node>
 					</node>
 					<node id="ID379" name="Cloner">
-						<translate sid="translate">0 -4.18298 11.0181</translate>
+						<translate sid="translate">0 -2.243 11.0181</translate>
 						<rotate sid="rotateY">0 1 0 -0</rotate>
 						<rotate sid="rotateX">1 0 0 0</rotate>
 						<rotate sid="rotateZ">0 0 1 -0</rotate>
@@ -4594,7 +4594,7 @@
 						</node>
 					</node>
 					<node id="ID452" name="_35">
-						<translate sid="translate">0.00463565 -1.30154 22.5907</translate>
+						<translate sid="translate">0.00463565 0.638437 22.5907</translate>
 						<rotate sid="rotateY">0 1 0 0</rotate>
 						<rotate sid="rotateX">1 0 0 -90</rotate>
 						<rotate sid="rotateZ">0 0 1 -315.029</rotate>
@@ -4670,7 +4670,7 @@
 						</node>
 					</node>
 					<node id="ID510" name="_30">
-						<translate sid="translate">0.00463565 -1.30154 22.5907</translate>
+						<translate sid="translate">0.00463565 0.638437 22.5907</translate>
 						<rotate sid="rotateY">0 1 0 0</rotate>
 						<rotate sid="rotateX">1 0 0 -90</rotate>
 						<rotate sid="rotateZ">0 0 1 -270</rotate>
@@ -4746,7 +4746,7 @@
 						</node>
 					</node>
 					<node id="ID568" name="_25">
-						<translate sid="translate">0.00463565 -1.30154 22.5907</translate>
+						<translate sid="translate">0.00463565 0.638437 22.5907</translate>
 						<rotate sid="rotateY">0 1 0 0</rotate>
 						<rotate sid="rotateX">1 0 0 -90</rotate>
 						<rotate sid="rotateZ">0 0 1 -225.042</rotate>
@@ -4822,7 +4822,7 @@
 						</node>
 					</node>
 					<node id="ID626" name="_20">
-						<translate sid="translate">0.00463565 -1.30154 22.5907</translate>
+						<translate sid="translate">0.00463565 0.638437 22.5907</translate>
 						<rotate sid="rotateY">0 1 0 0</rotate>
 						<rotate sid="rotateX">1 0 0 -90</rotate>
 						<rotate sid="rotateZ">0 0 1 -180</rotate>
@@ -4898,7 +4898,7 @@
 						</node>
 					</node>
 					<node id="ID684" name="_15">
-						<translate sid="translate">0.00463565 -1.30154 22.5907</translate>
+						<translate sid="translate">0.00463565 0.638437 22.5907</translate>
 						<rotate sid="rotateY">0 1 0 0</rotate>
 						<rotate sid="rotateX">1 0 0 -90</rotate>
 						<rotate sid="rotateZ">0 0 1 -134.997</rotate>
@@ -4974,7 +4974,7 @@
 						</node>
 					</node>
 					<node id="ID742" name="_10">
-						<translate sid="translate">0.00463565 -1.30154 22.5907</translate>
+						<translate sid="translate">0.00463565 0.638437 22.5907</translate>
 						<rotate sid="rotateY">0 1 0 0</rotate>
 						<rotate sid="rotateX">1 0 0 -90</rotate>
 						<rotate sid="rotateZ">0 0 1 -90</rotate>
@@ -5050,7 +5050,7 @@
 						</node>
 					</node>
 					<node id="ID800" name="_5">
-						<translate sid="translate">0.00463565 -1.30154 22.5907</translate>
+						<translate sid="translate">0.00463565 0.638437 22.5907</translate>
 						<rotate sid="rotateY">0 1 0 0</rotate>
 						<rotate sid="rotateX">1 0 0 -90</rotate>
 						<rotate sid="rotateZ">0 0 1 -45.0474</rotate>
@@ -5102,7 +5102,7 @@
 						</node>
 					</node>
 					<node id="ID831" name="_0">
-						<translate sid="translate">0.0499014 -1.30154 -0.554514</translate>
+						<translate sid="translate">0.0499014 0.638437 -0.554514</translate>
 						<rotate sid="rotateY">0 1 0 0</rotate>
 						<rotate sid="rotateX">1 0 0 -90</rotate>
 						<rotate sid="rotateZ">0 0 1 -0</rotate>
