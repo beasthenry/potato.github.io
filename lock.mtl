@@ -3,11 +3,6 @@
 newmtl default
 Kd 1 1 1
 
-newmtl Mat.3
-Ka 1 1 1
-Kd 0.81000000238419 0.81000000238419 0.81000000238419
-illum 7
-
 newmtl Mat.1
 Ka 1 1 1
 Kd 0.5799999833107 0 0
@@ -16,6 +11,27 @@ Ns 50
 illum 7
 
 newmtl Mat.4
+Ka 1 1 1
+Kd 0 0 0
+Ks 1 1 1
+Ns 50
+illum 7
+
+newmtl Mat.3
+Ka 1 1 1
+Kd 0.81000000238419 0.81000000238419 0.81000000238419
+Ks 1 1 1
+Ns 7
+illum 7
+
+newmtl Mat.1_1
+Ka 1 1 1
+Kd 0.5799999833107 0 0
+Ks 0.15000000596046 0.15000000596046 0.15000000596046
+Ns 50
+illum 7
+
+newmtl Mat.4_1
 Ka 1 1 1
 Kd 0 0 0
 illum 7
