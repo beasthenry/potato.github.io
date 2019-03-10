@@ -9,6 +9,9 @@
             <a-asset-item id="makery" src="https://cdn.rawgit.com/MakeryINFO/models-for-AR.js/master/makery.gltf"></a-asset-item>
         </a-assets>
         <!-- scale values allow you to adjust the file’s display size, gltf-model=“#your file name“ -->
+        <a-entity rotation="0 0 0" animation="property: rotation; to: 0 360 0; loop: true; dur: 10000">
+            <a-entity position="5 0 0"></a-entity>
+        </a-entity>
         <a-entity scale="20 20 20" gltf-model="#makery"></a-entity>
         <a-marker-camera preset='hiro'></a-marker-camera>
     </a-scene>
