@@ -178,17 +178,12 @@
                 type: 'pattern'
                 , patternUrl: THREEx.ArToolkitContext.baseURL + 'data/pattern-1.patt'
             , });
-            var markerRoot2 = new THREE.Group;
-            scene.add(markerRoot2);
-            var artoolkitMarker = new THREEx.ArMarkerControls(arToolkitContext, markerRoot2, {
-                type: 'pattern'
-                , patternUrl: THREEx.ArToolkitContext.baseURL + 'data/pattern-2.patt'
-            , });
+            /*var markerRoot2 = new THREE.Group; scene.add(markerRoot2); var artoolkitMarker = new THREEx.ArMarkerControls(arToolkitContext, markerRoot2, { type: 'pattern' , patternUrl: THREEx.ArToolkitContext.baseURL + 'data/pattern-2.patt' , });*/
             //////////////////////////////////////////////////////////////////////////////////
             //		add an object in the scene
             //////////////////////////////////////////////////////////////////////////////////
             markerRoot.add(model1);
-            markerRoot2.add(model2);
+            //markerRoot2.add(model2);
             //////////////////////////////////////////////////////////////////////////////////
             //		render the whole thing on the page
             //////////////////////////////////////////////////////////////////////////////////
