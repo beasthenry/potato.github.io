@@ -210,7 +210,7 @@
                 //console.log(markerDetected);
                 if (markerDetected == true) {
                     if (action == 0) {
-                        if ((lastTimeMsec / 1000) > 10) {
+                        if ((lastTimeMsec / 1000) > 13) {
                             //do nothing wait for loading
                             action++
                         }
@@ -224,7 +224,7 @@
                         }
                     }
                     if (action == 3) {
-                        if ((lastTimeMsec / 1000) > 47) {
+                        if ((lastTimeMsec / 1000) > 43) {
                             turnknob(knob.rotation, -1, 90);
                         }
                     }
