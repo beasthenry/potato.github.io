@@ -37,7 +37,7 @@
         var loader = new THREE.ColladaLoader();
         var knob;
         var markerDetected;
-        var action = 1;
+        var action = 0;
         var start = Date.now();;
         var currentTime;
         var temp_action;
@@ -47,6 +47,7 @@
             model1.scale.x = model1.scale.y = model1.scale.z = 0.015;
             model2 = model1.clone();
             knob = model1.getObjectByName("knob", true);
+            sweep = model1.getObjectByName("sweep", true);
             //            knob = knob.children[0];
             //            new TWEEN.Tween(knob.position).to({
             //                x: 0
@@ -204,48 +205,36 @@
                 lastTimeMsec = lastTimeMsec || nowMsec - 1000 / 60;
                 var deltaMsec = Math.min(200, nowMsec - lastTimeMsec);
                 lastTimeMsec = nowMsec;
+                console.log(lastTimeMsec);
                 TWEEN.update();
                 //console.log(markerDetected);
                 if (markerDetected == true) {
                     if (action == 0) {
-                        console.log(Math.floor(millis / 1000), start, Date.now(), action);
-                        if (Math.floor(millis / 1000) < 105) {
-                            action = temp_action;
-                        }
-                        else {
-                            action++;
+                        if ((lastTimeMsec / 1000) > 10) {
+                            //do nothing wait for loading
+                            action++
                         }
                     }
                     if (action == 1) {
                         turnknob(knob.rotation, 1, 72);
-                        temp_action = action;
-                        millis = Date.now() - start;
-                        console.log(Math.floor(millis / 1000), action)
                     }
                     if (action == 2) {
-                        millis = Date.now() - start;
-                        console.log(Math.floor(millis / 1000), start, Date.now());
-                        if (Math.floor(millis / 1000) < 15) {
-                            action = 0;
-                        }
-                        else {
-                            //action = temp_action;
-                            //start = Date.now();
-                            console.log(action);
-                            temp_action = action;
+                        if ((lastTimeMsec / 1000) > 28) {
                             turnknob(knob.rotation, -1, 306);
                         }
                     }
                     if (action == 3) {
-                        millis = Date.now() - start;
-                        console.log(Math.floor(millis / 1000), action);
-                        if (Math.floor(millis / 1000) < 55) {
-                            action = 0;
-                        }
-                        else {
-                            console.log(action);
-                            temp_action = action;
+                        if ((lastTimeMsec / 1000) > 47) {
                             turnknob(knob.rotation, -1, 90);
+                        }
+                    }
+                    if (action == 4) {
+                        if ((lastTimeMsec / 1000) > 55) {
+                            if (sweep.position.z > -40) {
+                                sweep.position.z -= Math.PI / 10;
+                            }
+                            console.log(sweep.position.z);
+                            //action++;
                         }
                     }
                     /*setTimeout(function () {
