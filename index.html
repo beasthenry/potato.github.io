@@ -219,17 +219,17 @@
                         turnknob(knob.rotation, 1, 72);
                     }
                     if (action == 2) {
-                        if ((lastTimeMsec / 1000) > 15) {
+                        if ((lastTimeMsec / 1000) > 13) {
                             turnknob(knob.rotation, -1, 306);
                         }
                     }
                     if (action == 3) {
-                        if ((lastTimeMsec / 1000) > 30) {
+                        if ((lastTimeMsec / 1000) > 28) {
                             turnknob(knob.rotation, -1, 90);
                         }
                     }
                     if (action == 4) {
-                        if ((lastTimeMsec / 1000) > 36) {
+                        if ((lastTimeMsec / 1000) > 32) {
                             if (sweep.position.z > -40) {
                                 sweep.position.z -= Math.PI / 10;
                             }
