@@ -210,7 +210,7 @@
                 //console.log(markerDetected);
                 if (markerDetected == true) {
                     if (action == 0) {
-                        if ((lastTimeMsec / 1000) > 13) {
+                        if ((lastTimeMsec / 1000) > 6) {
                             //do nothing wait for loading
                             action++
                         }
@@ -219,17 +219,17 @@
                         turnknob(knob.rotation, 1, 72);
                     }
                     if (action == 2) {
-                        if ((lastTimeMsec / 1000) > 28) {
+                        if ((lastTimeMsec / 1000) > 21) {
                             turnknob(knob.rotation, -1, 306);
                         }
                     }
                     if (action == 3) {
-                        if ((lastTimeMsec / 1000) > 43) {
+                        if ((lastTimeMsec / 1000) > 36) {
                             turnknob(knob.rotation, -1, 90);
                         }
                     }
                     if (action == 4) {
-                        if ((lastTimeMsec / 1000) > 49) {
+                        if ((lastTimeMsec / 1000) > 42) {
                             if (sweep.position.z > -40) {
                                 sweep.position.z -= Math.PI / 10;
                             }
