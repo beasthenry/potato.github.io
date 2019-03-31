@@ -205,7 +205,7 @@
                 lastTimeMsec = lastTimeMsec || nowMsec - 1000 / 60;
                 var deltaMsec = Math.min(200, nowMsec - lastTimeMsec);
                 lastTimeMsec = nowMsec;
-                console.log(lastTimeMsec);
+                //console.log(lastTimeMsec);
                 TWEEN.update();
                 //console.log(markerDetected);
                 if (markerDetected == true) {
@@ -229,11 +229,11 @@
                         }
                     }
                     if (action == 4) {
-                        if ((lastTimeMsec / 1000) > 55) {
+                        if ((lastTimeMsec / 1000) > 49) {
                             if (sweep.position.z > -40) {
                                 sweep.position.z -= Math.PI / 10;
                             }
-                            console.log(sweep.position.z);
+                            //console.log(sweep.position.z);
                             //action++;
                         }
                     }
