@@ -1,18 +1,257 @@
-<script src="https://aframe.io/releases/0.6.0/aframe.min.js"></script>
-<script src="https://jeromeetienne.github.io/AR.js/aframe/build/aframe-ar.js"></script>
+<html>
+<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+<!-- three.js library -->
+<script src='js/three.js'></script>
+<script src="js/ColladaLoader.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/16.3.5/Tween.min.js"></script>
+<!-- jsartookit -->
+<script src="js/artoolkit.min.js"></script>
+<script src="js/artoolkit.api.js"></script>
+<!-- include threex.artoolkit -->
+<script src="js/threex-artoolkitsource.js"></script>
+<script src="js/threex-artoolkitcontext.js"></script>
+<script src="js/threex-arbasecontrols.js"></script>
+<script src="js/threex-armarkercontrols.js"></script>
+<script>
+    THREEx.ArToolkitContext.baseURL = ''
+</script>
+<style>
+    body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding 0;
+        overflow: hidden;
+        font-family: 'Raleway', sans-serif;
+    }
+</style>
 
-<body style='margin : 0px; overflow: hidden;'>
-    <a-scene embedded arjs>
-        <!-- below is for content -->
-        <a-assets>
-            <!-- id=“file name“ src=“file url" -->
-            <a-asset-item id="makery" src="https://beasthenry.github.io/potato.github.io/lock.obj"></a-asset-item>
-        </a-assets>
-        <!-- scale values allow you to adjust the file’s display size, gltf-model=“#your file name“ -->
-        <a-entity rotation="0 0 0" animation="property: rotation; to: 0 360 0; loop: true; dur: 10000">
-            <a-entity position="5 0 0"></a-entity>
-        </a-entity>
-        <a-entity scale="20 20 20" gltf-model="#makery"></a-entity>
-        <a-marker-camera preset='hiro'></a-marker-camera>
-    </a-scene>
+<body>
+    <script>
+        //////////////////////////////////////////////////////////////////////////////////
+        //		Init
+        //////////////////////////////////////////////////////////////////////////////////
+        var rad90 = Math.PI * 15;
+        var model1, model2, count = 0
+            , particles, particleCount, particleSystem;
+        var loader = new THREE.ColladaLoader();
+        var knob;
+        var markerDetected;
+        var action = 0;
+        var start = Date.now();;
+        var currentTime;
+        var temp_action;
+        var millis;
+        loader.load('lock9.dae', function (collada) {
+            model1 = collada.scene;
+            model1.scale.x = model1.scale.y = model1.scale.z = 0.015;
+            model2 = model1.clone();
+            knob = model1.getObjectByName("knob", true);
+            sweep = model1.getObjectByName("sweep", true);
+            //            knob = knob.children[0];
+            //            new TWEEN.Tween(knob.position).to({
+            //                x: 0
+            //                , y: 0
+            //                , z: 0
+            //            }, 3000).repeat(Infinity).easing(TWEEN.Easing.Quadratic.InOut).start();
+            //            knob.rotate.x = knob.rotate.y = knob.rotate.z = 0.0;
+            //knob.rotation.set(0, 100, 0);
+            //            new TWEEN.Tween(knob.rotation).to({
+            //                //x: knob.rotation.x + rad90
+            //                x: 100
+            //                    //, z: knob.rotation.z + rad90
+            //            }, 1000).easing(TWEEN.Easing.Quadratic.InOut).start();
+            // var cloud2 = model2.getObjectByName("Sweep", true);
+            // cloud2 = cloud2.children[0];
+            // cloud2.position.set(0, 190, -15);
+            //everything is preloaded set it all up!
+            markerDetected = true;
+            init();
+        });
+        var counter = 0;
+
+        function turnknob(knob, direction, degree) {
+            //1 is clockwise& -1 is counter-clockwise
+            var turnDegree = Math.PI / 180 * degree;
+            if (direction == -1) {
+                if (counter >= -1 * turnDegree) {
+                    knob.y -= Math.PI / 360;
+                    counter -= Math.PI / 360;
+                    //console.log(turnDegree * 9);
+                }
+                else {
+                    counter = 0;
+                    action++;
+                    //console.log(counter);
+                    //console.log(action);
+                }
+            }
+            if (direction == 1) {
+                if (counter <= turnDegree) {
+                    knob.y += Math.PI / 360;
+                    counter += Math.PI / 360;
+                    //console.log(turnDegree * 9);
+                }
+                else {
+                    //                    for (var t = 0; t < 120000; t++) {
+                    //                        console.log(t);
+                    //                    }
+                    counter = 0;
+                    //setTimeout(function () {}, 3000);
+                    action++;
+                    //console.log(counter);
+                    //console.log(action);
+                }
+            }
+        }
+
+        function init() {
+            // init renderer
+            var renderer = new THREE.WebGLRenderer({
+                antialias: true
+                , alpha: true
+            });
+            renderer.setClearColor(new THREE.Color('lightgrey'), 0)
+            renderer.setSize(640, 480);
+            renderer.domElement.style.position = 'absolute'
+            renderer.domElement.style.top = '0px'
+            renderer.domElement.style.left = '0px'
+            document.body.appendChild(renderer.domElement);
+            // array of functions for the rendering loop
+            var onRenderFcts = [];
+            // init scene and camera
+            var scene = new THREE.Scene();
+            //////////////////////////////////////////////////////////////////////////////////
+            //		Initialize a basic camera
+            //////////////////////////////////////////////////////////////////////////////////
+            // Create a camera
+            var camera = new THREE.Camera();
+            scene.add(camera);
+            var light = new THREE.HemisphereLight(0xffffbb, 0x080820, 1);
+            //scene.add(light);
+            ////////////////////////////////////////////////////////////////////////////////
+            //          handle arToolkitSource
+            ////////////////////////////////////////////////////////////////////////////////
+            var arToolkitSource = new THREEx.ArToolkitSource({
+                sourceType: 'webcam'
+            });
+            arToolkitSource.init(function onReady() {
+                onResize()
+            });
+            // handle resize
+            window.addEventListener('resize', function () {
+                onResize()
+            });
+
+            function onResize() {
+                arToolkitSource.onResize()
+                arToolkitSource.copySizeTo(renderer.domElement)
+                if (arToolkitContext.arController !== null) {
+                    arToolkitSource.copySizeTo(arToolkitContext.arController.canvas)
+                }
+            }
+            ////////////////////////////////////////////////////////////////////////////////
+            //          initialize arToolkitContext
+            ////////////////////////////////////////////////////////////////////////////////	
+            // create atToolkitContext
+            var arToolkitContext = new THREEx.ArToolkitContext({
+                    cameraParametersUrl: THREEx.ArToolkitContext.baseURL + 'data/camera_para.dat'
+                    , detectionMode: 'mono'
+                , })
+                // initialize it
+            arToolkitContext.init(function onCompleted() {
+                    // copy projection matrix to camera
+                    camera.projectionMatrix.copy(arToolkitContext.getProjectionMatrix());
+                })
+                // update artoolkit on every frame
+            onRenderFcts.push(function () {
+                    if (arToolkitSource.ready === false) return
+                    arToolkitContext.update(arToolkitSource.domElement)
+                    markerDetected == false;
+                })
+                ////////////////////////////////////////////////////////////////////////////////
+                //          Create a ArMarkerControls
+                ////////////////////////////////////////////////////////////////////////////////
+            var markerRoot = new THREE.Group;
+            scene.add(markerRoot);
+            var artoolkitMarker = new THREEx.ArMarkerControls(arToolkitContext, markerRoot, {
+                type: 'pattern'
+                , patternUrl: THREEx.ArToolkitContext.baseURL + 'data/pattern-1.patt'
+            , });
+            var markerRoot2 = new THREE.Group;
+            scene.add(markerRoot2);
+            var artoolkitMarker = new THREEx.ArMarkerControls(arToolkitContext, markerRoot2, {
+                type: 'pattern'
+                , patternUrl: THREEx.ArToolkitContext.baseURL + 'data/pattern-2.patt'
+            , });
+            //////////////////////////////////////////////////////////////////////////////////
+            //		add an object in the scene
+            //////////////////////////////////////////////////////////////////////////////////
+            markerRoot.add(model1);
+            markerRoot2.add(model2);
+            //////////////////////////////////////////////////////////////////////////////////
+            //		render the whole thing on the page
+            //////////////////////////////////////////////////////////////////////////////////
+            // render the scene
+            onRenderFcts.push(function () {
+                    renderer.render(scene, camera);
+                })
+                // run the rendering loop
+            var lastTimeMsec = null
+            requestAnimationFrame(function animate(nowMsec) {
+                // keep looping
+                requestAnimationFrame(animate);
+                // measure time
+                lastTimeMsec = lastTimeMsec || nowMsec - 1000 / 60;
+                var deltaMsec = Math.min(200, nowMsec - lastTimeMsec);
+                lastTimeMsec = nowMsec;
+                console.log(lastTimeMsec);
+                TWEEN.update();
+                //console.log(markerDetected);
+                if (markerDetected == true) {
+                    if (action == 0) {
+                        if ((lastTimeMsec / 1000) > 10) {
+                            //do nothing wait for loading
+                            action++
+                        }
+                    }
+                    if (action == 1) {
+                        turnknob(knob.rotation, 1, 72);
+                    }
+                    if (action == 2) {
+                        if ((lastTimeMsec / 1000) > 28) {
+                            turnknob(knob.rotation, -1, 306);
+                        }
+                    }
+                    if (action == 3) {
+                        if ((lastTimeMsec / 1000) > 47) {
+                            turnknob(knob.rotation, -1, 90);
+                        }
+                    }
+                    if (action == 4) {
+                        if ((lastTimeMsec / 1000) > 55) {
+                            if (sweep.position.z > -40) {
+                                sweep.position.z -= Math.PI / 10;
+                            }
+                            console.log(sweep.position.z);
+                            //action++;
+                        }
+                    }
+                    /*setTimeout(function () {
+                        knob.rotation.y += Math.PI / 360;
+                    }, 4000);
+                    knob.rotation.y += Math.PI / 360;
+                    setTimeout(function () {
+                        knob.rotation.y += 0;
+                        markerDetected = false;
+                    }, 10000););
+                    */
+                }
+                // call each update function
+                onRenderFcts.forEach(function (onRenderFct) {
+                    onRenderFct(deltaMsec / 1000, nowMsec / 1000);
+                })
+            });
+        }
+    </script>
 </body>
